@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Lesson extends Model
 {
@@ -16,6 +17,11 @@ class Lesson extends Model
         'platform_id',
         'section_id',
     ];
+
+    public function getCompletedAttribute()
+    {
+        return $this->users->contains(auth()->user()->id);
+    }
 
     public function section()
     {
@@ -37,16 +43,18 @@ class Lesson extends Model
         return $this->belongsToMany('App\Models\User');
     }
 
-    public function resource () {
+    public function resource()
+    {
         return $this->morphOne('App\Models\Resource', 'resourceable');
     }
 
-    public function comments() {
+    public function comments()
+    {
         return $this->morphMany('App\Models\Comment', 'commentable');
     }
 
-    public function reactions() {
+    public function reactions()
+    {
         return $this->morphMany('App\Models\Reaction', 'reactionable');
     }
-
 }

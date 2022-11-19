@@ -35,9 +35,9 @@ class CourseFactory extends Factory
             ]),
             'slug' => Str::slug($title),
             'user_id'  => User::all()->random()->id,
-            'user_id'  => Level::all()->random()->id,
-            'user_id'  => Category::all()->random()->id,
-            'user_id'  => Price::all()->random()->id,
+            'level_id'  => Level::all()->random()->id,
+            'category_id'  => Category::all()->random()->id,
+            'price_id'  => Price::all()->random()->id,
         ];
     }
 }
