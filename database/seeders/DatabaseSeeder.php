@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use Database\Factories\LessonFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Contracts\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,9 +25,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-       /*  Storage::deleteDirectory('public/cursos');
+        /*  Storage::deleteDirectory('public/cursos');
         Storage::makeDirectory('public/cursos'); */
 
+        $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(LevelSeeder::class);
         $this->call(CategorySeeder::class);
@@ -34,6 +37,5 @@ class DatabaseSeeder extends Seeder
         $this->call(PlatformSeeder::class);
         $this->call(DescriptionSeeder::class);
         $this->call(CourseSeeder::class);
-
     }
 }
