@@ -30,7 +30,7 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-            'url' => 'cursos/' . $this->images[rand(0, 99)] . '-640x480.jpg',
+            'url' => 'public/courses/' . $this->images[rand(0, 99)] . '-640x480.jpg',
         ];
     }
 }

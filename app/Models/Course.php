@@ -24,6 +24,7 @@ class Course extends Model
         'category_id',
         'price_id',
     ];
+
     protected $withCount = ['students', 'reviews'];
 
     public function scopeCategory($query, $category_id)

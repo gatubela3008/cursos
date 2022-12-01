@@ -28,6 +28,10 @@
     border: 0;
 }
 
+.form-input {
+    @apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm;
+}
+
 @media (min-width:640px) {
     .container {
         @apply px-6;

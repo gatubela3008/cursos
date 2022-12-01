@@ -1,9 +1,17 @@
 <div class="container py-8">
-
     <x-table-responsive>
 
-        <div class="px-6 py-4">
-            <input type="text" class="form-input w-full shadow-sm" placeholder="Ingrese lo que va a buscar">
+        <div class="px-6 py-4 flex">
+            <input type="text"
+            class="rounded-lg form-input flex-1 shadow-sm"
+            placeholder="Ingrese lo que va a buscar"
+            wire:model="search"
+            wire:keydown="limpiar_page">
+
+            <a href="{{ route('instructor.courses.create') }}"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded h-12 ml-2">
+                Crear nuevo curso
+            </a>
         </div>
 
         @if ($courses->count() > 0)
@@ -36,13 +44,19 @@
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 w-10 h-10">
 
-                                        <img class="w-full h-full rounded-full"
-                                            src="{{ Storage::url($course->image->url) }}" alt="" />
+                                        @isset($course->image)
+                                            <img id="picture" class="w-full h-full rounded-full object-cover object-center"
+                                                src="{{ Storage::url($course->image->url) }}" alt="">
+                                        @else
+                                            <img src="{{ asset('img/cursos/pexels-fauxels-3184357.jpg') }}"
+                                                class="w-full h-full rounded-full object-cover object-center" alt="">
+                                        @endisset
+
                                     </div>
 
                                     <div class="ml-4">
-                                        <div class="class="text-gray-900 text-sm font-medium">
-                                            {{ $course->title }}
+                                        <div class="text-gray-900 text-sm font-medium">
+                                            {{ Str::limit($course->title, 65, '...') }}
                                         </div>
                                         <div class="text-gray-500 text-sm">
                                             {{ $course->category->name }}
@@ -135,7 +149,10 @@
 
                             <td class="py-4 px-6 whitespace-nowrap text-sm text-right font-medium">
 
-                                <a href="{{ route('instructor.courses.edit', $course) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                <a href="{{ route('instructor.courses.edit', $course) }}"
+                                    class="text-indigo-600 hover:text-indigo-900">
+                                    Edit
+                                </a>
 
                             </td>
                         </tr>

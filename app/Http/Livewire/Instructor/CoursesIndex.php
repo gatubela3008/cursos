@@ -10,10 +10,19 @@ class CoursesIndex extends Component
 {
     use WithPagination;
 
+    public $search;
+
     public function render()
     {
-        $courses = Course::where('user_id', auth()->user()->id)
+        $courses = Course::where('title', 'LIKE', '%'.$this->search.'%')
+                ->where('user_id', auth()->user()->id)
+                ->latest('id')
                 ->paginate(6);
         return view('livewire.instructor.courses-index', compact('courses'));
     }
+
+    public function limpiar_page() {
+        $this->resetPage();
+    }
+
 }
