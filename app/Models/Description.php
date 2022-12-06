@@ -10,9 +10,8 @@ class Description extends Model
     use HasFactory;
 
     protected $fillable = [
-        'url',
-        'resourseable_id',
-        'resourseable_type',
+        'name',
+        'lesson_id',
     ];
 
     public function lesson()

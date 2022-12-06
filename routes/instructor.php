@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\InstructorCourses;
 use App\Http\Controllers\Instructor\CourseController;
 use App\Models\Course;
+use App\Http\Livewire\Instructor\CoursesCurriculum;
 
 Route::redirect('', 'instructor/courses');
 
@@ -12,5 +13,9 @@ Route::redirect('', 'instructor/courses');
     ->name('courses.index');
  */
 
- Route::resource('courses', CourseController::class)
-        ->names('courses');
+Route::resource('courses', CourseController::class)
+    ->names('courses');
+
+Route::get('courses/{course}/curriculum', CoursesCurriculum::class)->name('courses.curriculum');
+
+Route::get('courses/{course}/goals', [CourseController::class, 'goals'])->name('courses.goals');

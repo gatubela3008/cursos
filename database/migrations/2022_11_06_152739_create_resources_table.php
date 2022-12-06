@@ -18,8 +18,8 @@ return new class extends Migration
 
             $table->string('url');
 
-            $table->unsignedBigInteger('resourseable_id');
-            $table->string('resourseable_type');
+            $table->unsignedBigInteger('resourceable_id');
+            $table->string('resourceable_type');
 
             $table->timestamps();
         });
