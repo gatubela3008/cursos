@@ -1,17 +1,17 @@
-<section>
+<section class="mt-8">
     <h1 class="text-2xl font-bold">
-        Metas del Curso
+        Requerimientos del Curso
     </h1>
     <hr class="mt-2 mb-6">
 
-    @foreach ($course->goals as $item)
+    @foreach ($course->requirements as $item)
         <article class="card mb-4">
             <div class="card-body bg-gray-100">
 
-                @if ($goal->id == $item->id)
+                @if ($requirement->id == $item->id)
                     <form wire:submit.prevent="update">
-                        <input wire:model="goal.name" class="form-input w-full">
-                        @error('goal.name')
+                        <input wire:model="requirement.name" class="form-input w-full">
+                        @error('requirement.name')
                             <span class="text-xs text-red-600">
                                 {{ $message }}
                             </span>
@@ -39,7 +39,7 @@
         <div class=" card-body bg-gray-100">
             <form wire:submit.prevent="store">
 
-                <input wire:model="name" class="form-input w-full" placeholder="Agregue una meta...">
+                <input wire:model="name" class="form-input w-full" placeholder="Agregue un requerimiento...">
                 @error('name')
                     <span class="text-xs text-red-600">
                         {{ $message }}
@@ -48,7 +48,7 @@
 
                 <div class="flex mt-2 justify-end">
                     <button wire:click="emit(submit)" class="btn btn-blue rounded-lg">
-                        Agregar meta
+                        Agregar requerimiento
                     </button>
                 </div>
 
@@ -56,3 +56,4 @@
         </div>
     </article>
 </section>
+

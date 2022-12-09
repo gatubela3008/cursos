@@ -30,6 +30,11 @@ class CoursesIndex extends Component
             ->level($this->level_id)
             ->latest('id')
             ->paginate(8);
+
         return view('livewire.courses-index', compact('courses', 'categories', 'levels'));
+    }
+
+    public function limpiarPage() {
+        $this->resetPage();
     }
 }
