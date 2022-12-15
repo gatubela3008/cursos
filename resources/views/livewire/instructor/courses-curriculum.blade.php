@@ -1,7 +1,4 @@
 <div>
-    <x-slot name="course">
-        {{ $course->slug }}
-    </x-slot>
 
     <h1 class="text-2xl font-bold">
         Lecciones del Curso
@@ -10,12 +7,12 @@
     <hr class="mt-2 mb-6">
 
     @foreach ($course->sections as $item)
-        <article class="card mb-6" x-data="{open:true}">
-            <div class="card-body bg-gray-100">
+        <article class="mb-6 card" x-data="{open:true}">
+            <div class="bg-gray-100 card-body">
 
                 @if ($section->id == $item->id)
                     <form wire:submit.prevent="update">
-                        <input wire:model='section.name' class="form-input w-full"
+                        <input wire:model='section.name' class="w-full form-input"
                             placeholder="Ingrese el nombre de la sección..." type="text">
                         @error('section.name')
                             <span class="text-sm text-red-600">
@@ -24,16 +21,16 @@
                         @enderror
                     </form>
                 @else
-                    <header class="flex justify-between items-center">
-                        <h1 x-on:click="open = !open" class="cursor-pointer text-xl">
+                    <header class="flex items-center justify-between">
+                        <h1 x-on:click="open = !open" class="text-xl cursor-pointer">
                             <strong>Sección: </strong>
                             {{ $item->name }}
                         </h1>
 
                         <div class="">
-                            <i class="fas fa-edit cursor-pointer text-blue-600 mr-4"
+                            <i class="mr-4 text-blue-600 cursor-pointer fas fa-edit"
                                 wire:click="edit({{ $item }})"></i>
-                            <i class="fas fa-trash cursor-pointer text-red-600"
+                            <i class="text-red-600 cursor-pointer fas fa-trash"
                                 wire:click="destroy({{ $item }})"></i>
                         </div>
                     </header>
@@ -47,21 +44,21 @@
     @endforeach
 
     <div x-data="{open:false}">
-        <a x-show="!open" class="flex text-red-800 font-bold items-center cursor-pointer"
+        <a x-show="!open" class="flex items-center font-bold text-red-800 cursor-pointer"
             x-on:click="open=true">
 
-            <i class="far fa-plus-square text-2xl mr-4"></i>
+            <i class="mr-4 text-2xl far fa-plus-square"></i>
             Agregar nueva Sección
         </a>
         <article class="card" x-show="open">
-            <div class="card-body bg-gray-100">
-                <h1 class="text-xl font-bold  mb-4">
+            <div class="bg-gray-100 card-body">
+                <h1 class="mb-4 text-xl font-bold">
                     Agregar nueva sección
                 </h1>
                 <div class="mb-4">
                     <input type="text"
                         wire:model="name"
-                        class="form-input w-full rounded-lg"
+                        class="w-full rounded-lg form-input"
                         placeholder="Escriba el nombre de la sección..">
                     @error('name')
                         <span class="text-xs text-red-500">
@@ -71,11 +68,11 @@
                 </div>
                 <div class="flex justify-end">
                     <button x-on:click="open=false"
-                        class="btn btn-red rounded-lg mx-2">
+                        class="mx-2 rounded-lg btn btn-red">
                         Cancelar
                     </button>
                     <button wire:click="store"
-                        class="btn btn-blue rounded-lg mx-2">
+                        class="mx-2 rounded-lg btn btn-blue">
                         Aceptar
                     </button>
                 </div>

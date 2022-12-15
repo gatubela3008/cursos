@@ -143,8 +143,7 @@
 
                                     @default
                                 @endswitch
-                                </span>
-                                </span>
+
                             </td>
 
                             <td class="py-4 px-6 whitespace-nowrap text-sm text-right font-medium">

@@ -1,9 +1,6 @@
 <div>
-    <x-slot name='course'>
-        {{  $course->slug }}
-    </x-slot>
 
-    <h1 class="text-2xl fond-bold mb-4">
+    <h1 class="mb-4 text-2xl fond-bold">
         Estudiantes del Curso
     </h1>
 
@@ -11,7 +8,7 @@
 
         <div class="px-6 py-4 ">
             <input type="text"
-            class="rounded-lg w-full form-input shadow-sm "
+            class="w-full rounded-lg shadow-sm form-input "
             placeholder="Ingrese lo que va a buscar"
             wire:model="search">
         </div>
@@ -21,10 +18,10 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        <th class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase">
                             Nombre
                         </th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        <th class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase">
                             email
                         </th>
                         <th>
@@ -40,11 +37,11 @@
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 w-10 h-10">
                                         <img src="{{ $student->profile_photo_url }}"
-                                                class="w-full h-full rounded-full object-cover object-center" alt="">
+                                                class="object-cover object-center w-full h-full rounded-full" alt="">
                                     </div>
 
                                     <div class="ml-4">
-                                        <div class="text-gray-900 text-sm font-medium">
+                                        <div class="text-sm font-medium text-gray-900">
                                             {{ $student->name }}
                                         </div>
                                     </div>
@@ -53,14 +50,14 @@
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-gray-900 text-sm">
+                                <div class="text-sm text-gray-900">
                                     {{ $student->email }}
                                 </div>
 
                             </td>
 
 
-                            <td class="py-4 px-6 whitespace-nowrap text-sm text-right font-medium">
+                            <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
 
                                 <a href=""
                                     class="text-indigo-600 hover:text-indigo-900">

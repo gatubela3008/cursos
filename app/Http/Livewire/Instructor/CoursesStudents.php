@@ -32,7 +32,7 @@ class CoursesStudents extends Component
                     ->orWhere('email', 'LIKE', '%' . $this->search . '%')
                     ->paginate(4);
         return view('livewire.instructor.courses-students', compact('students'))
-            ->layout('layouts.instructor');
+            ->layout('layouts.instructor', ['course' => $this->course]);
     }
 
 

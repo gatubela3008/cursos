@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Course;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -33,5 +34,17 @@ class CoursePolicy
     public function dictated (User $user, Course $course)
     {
         return $course->user_id == $user->id;
+    }
+
+    public function revision(?User $user, Course $course)
+    {
+        return $course->status == Course::REVISION;
+    }
+
+    public function valued(?User $user, Course $course)
+    {
+        return !(Review::where('user_id', $user->id)
+                    ->where('course_id', $course->id)
+                    ->count());
     }
 }

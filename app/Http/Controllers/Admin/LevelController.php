@@ -1,0 +1,106 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Level;
+
+class LevelController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $levels = Level::all();
+
+        return view('admin.levels.index', compact('levels'))
+            ->with('info', 'Nivel agregada con éxito');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.levels.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:255|unique:levels'
+        ]);
+
+        $level = Level::create($request->all());
+
+        return redirect()->route('admin.levels.edit', $level)
+            ->with('info', 'Nivel agregada con éxito');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  Level $level
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Level $level)
+    {
+        return view('admin.levels.show', compact('level'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  Level $level
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Level $level)
+    {
+        return view('admin.levels.edit', compact('level'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  Level $level
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Level $level)
+    {
+        $request->validate([
+            'name' => 'required|max:255|unique:levels,name,'. $level->id,
+        ]);
+
+        $level->update($request->all());
+
+        return redirect()->route('admin.levels.edit', $level)
+            ->with('info', 'Nivel actualizada con éxito');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  Level $level
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Level $level)
+    {
+        $level->delete();
+
+        return redirect()->route('admin.levels.index')
+            ->with('info', 'Nivel eliminada con éxito');
+    }
+}

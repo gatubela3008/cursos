@@ -25,13 +25,13 @@
     <div class="min-h-screen bg-gray-100">
         @livewire('navigation-menu')
 
-        <div class="container py-8 grid grid-cols-5">
+        <div class="container grid grid-cols-5 gap-6 py-8">
             <aside>
-                <h1 class="font-bold text-lg mb-4">
+                <h1 class="mb-4 text-lg font-bold">
                     Edición del curso
                 </h1>
 
-                <ul class="text-sm text-gray-600">
+                <ul class="mb-8 text-sm text-gray-600">
                     <li
                         class="leading-7 mb-1 border-l-4
                             @routeIs('instructor.courses.edit', $course)
@@ -56,7 +56,8 @@
                             Lecciones del curso
                         </a>
                     </li>
-                    <li class="leading-7 mb-1 border-l-4
+                    <li
+                        class="leading-7 mb-1 border-l-4
                             @routeIs('instructor.courses.goals', $course)
                                 border-indigo-400
                             @else
@@ -67,7 +68,8 @@
                             Metas del curso
                         </a>
                     </li>
-                    <li class="leading-7 mb-1 border-l-4
+                    <li
+                        class="leading-7 mb-1 border-l-4
                             @routeIs('instructor.courses.students', $course)
                                 border-indigo-400
                             @else
@@ -79,11 +81,59 @@
                         </a>
                     </li>
 
+                    @if ($course->observation)
+                        <li
+                            class="leading-7 mb-1 border-l-4
+                        @routeIs('instructor.courses.observation', $course)
+                            border-indigo-400
+                        @else
+                            border-transparent
+                        @endif
+                        pl-2">
+                            <a href="{{ route('instructor.courses.observation', $course) }}">
+                                Observaciones
+                            </a>
+                        </li>
+                    @endif
                 </ul>
+
+                @switch($course->status)
+                    @case(1)
+                        {{-- Course::BORRADOR  --}}
+                        <form action="{{ route('instructor.courses.status', $course) }}" method="post">
+                            @csrf
+
+                            <button class="text-sm rounded-lg btn btn-red">
+                                Solicitar revisión
+                            </button>
+                        </form>
+                    @break
+
+                    @case(2)
+                        {{-- Course::REVISION  --}}
+                        <div class="text-gray-500 card">
+                            <div class="card-body">
+                                Este curso se encuentra en revisión
+                            </div>
+                        </div>
+                    @break
+
+                    @case(3)
+                        {{-- Course::PUBLICADO  --}}
+                        <div class="text-gray-500 card">
+                            <div class="card-body">
+                                Este curso se encuentra publicado
+                            </div>
+                        </div>
+                    @break
+
+                    @default
+                @endswitch
+
             </aside>
 
             <div class="col-span-4 card">
-                <main class="card-body text-gray-600">
+                <main class="text-gray-600 card-body">
 
                     {{ $slot }}
 

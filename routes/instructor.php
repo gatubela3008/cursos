@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\InstructorCourses;
 use App\Http\Controllers\Instructor\CourseController;
-use App\Models\Course;
 use App\Http\Livewire\Instructor\CoursesCurriculum;
 use App\Http\Livewire\Instructor\CoursesStudents;
 
@@ -26,3 +24,10 @@ Route::get('courses/{course}/goals', [CourseController::class, 'goals'])->name('
 Route::get('courses/{course}/students', CoursesStudents::class)
     ->middleware('can:show dashboard')
     ->name('courses.students');
+
+Route::post('courses/{course}/status', [CourseController::class, 'status'])->name('courses.status');
+
+Route::get('courses/{course}/observation', [CourseController::class, 'observation'])
+    ->name('courses.observation');
+
+

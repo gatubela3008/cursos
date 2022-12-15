@@ -111,7 +111,7 @@ class CourseController extends Controller
 
         $request->validate([
             'title' => 'required',
-            'slug' => 'required|unique:courses,slug,'. $course->id,
+            'slug' => 'required|unique:courses,slug,' . $course->id,
             'subtitle' => 'required',
             'description' => 'required',
             'category_id' => 'required',
@@ -120,13 +120,13 @@ class CourseController extends Controller
             'file' => 'image',
         ]);
 
-        $course->update ($request->all());
+        $course->update($request->all());
 
-        if($request->file('file')) {
+        if ($request->file('file')) {
 
             $url = Storage::put('public/courses', $request->file('file'));
 
-            if($course->image) {
+            if ($course->image) {
                 Storage::delete($course->image->url);
                 $course->image()->update([
                     'url' => $url,
@@ -139,7 +139,6 @@ class CourseController extends Controller
         }
 
         return redirect()->route('instructor.courses.edit', compact('course'));
-
     }
 
     /**
@@ -156,24 +155,38 @@ class CourseController extends Controller
     public function __construct()
     {
         $this->middleware('can:index courses')
-                ->only('index');
+            ->only('index');
         $this->middleware('can:create course')
-                ->only('create', 'store');
+            ->only('create', 'store');
         $this->middleware('can:show course')
-                ->only('show');
+            ->only('show');
         $this->middleware('can:edit course')
-                ->only('edit', 'update', 'goals');
+            ->only('edit', 'update', 'goals');
         $this->middleware('can:delete course')
-                ->only('destroy');
-
+            ->only('destroy');
     }
-
 
     public function goals(Course $course)
     {
-        $this-> authorize('dictated', $course);
+        $this->authorize('dictated', $course);
 
         return view('instructor.courses.goals', compact('course'));
     }
-}
 
+    public function status(Course $course)
+    {
+        $course->status = Course::REVISION;
+        $course->save();
+
+        if ($course->observation) {
+            $course->observation->delete();
+        }
+
+        return redirect()->route('instructor.courses.edit', $course);
+    }
+
+    public function observation(Course $course)
+    {
+        return view('instructor.courses.observation', compact('course'));
+    }
+}
